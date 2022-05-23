@@ -1,16 +1,23 @@
 
-import firebase from './services/firebaseConnection'
+// import firebase from './services/firebaseConnection'
 
-import Rotas from './routes';
-
+import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter } from 'react-router-dom';
+import AuthProvider from './contexts/auth';
+import Routes from './routes';
 import './index.css';
+import { ToastContainer } from 'react-toastify';
 
-function App() {
+
+
+export default function App() {
   return (
-    <div>
-      <Rotas />
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <ToastContainer autoClose={3000} />
+        <Routes />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
-export default App;
