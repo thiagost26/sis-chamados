@@ -26,26 +26,29 @@ export default function Dashboard() {
 
 
     useEffect(() => {
-         
+        async function loadChamados(){
+            await listRef.limit(5)
+            .get()
+            .then((snapshot) => {
+                updateState(snapshot);
+            })
+            .catch((error) => {
+                console.log('Erro: ', error);
+                setLoadingMore(false);
+            })
+    
+            setLoading(false);
+        }
+
         return () => {
+
             loadChamados(); 
         }
 
+         
+
     }, []);
 
-    async function loadChamados(){
-        await listRef.limit(5)
-        .get()
-        .then((snapshot) => {
-            updateState(snapshot);
-        })
-        .catch((error) => {
-            console.log('Erro: ', error);
-            setLoadingMore(false);
-        })
-
-        setLoading(false);
-    }
 
     async function updateState(snapshot) {
         const isCollectionEmpty = snapshot.size === 0;
